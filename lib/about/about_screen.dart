@@ -334,6 +334,7 @@ class AboutScreen extends StatelessWidget {
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 11.w),
+          width: double.infinity,
           color: AppColor.fffff5f2,
           child: Text(
             content,
