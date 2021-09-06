@@ -58,7 +58,11 @@ class AboutScreen extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       leading: IconButton(
-        icon: Image.asset(AppAsset.icBack),
+        icon: Image.asset(
+          AppAsset.icBack,
+          width: 15.w,
+          fit: BoxFit.fitWidth,
+        ),
         onPressed: () {
           Navigator.pop(context);
         },

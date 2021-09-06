@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:truckit_demo/profile/profile_screen.dart';
+import 'package:truckit_demo/screens/job_details/job_details_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Truckit Demo',
-        home: ProfileScreen(),
+        home: JobDetailsScreen(),
       ),
     );
   }

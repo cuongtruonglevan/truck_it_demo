@@ -10,6 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Widgets
+  dotted_border: ^2.0.0+1
+  flutter_image_slideshow: ^0.1.1
+  
+  # Miscs
   flutter_screenutil: ^5.0.0+2
   get: ^4.3.8
 
@@ -41,6 +46,9 @@ flutter:
      - assets/images/
      - assets/images/2.0x/
      - assets/images/3.0x/
+     - assets/samples/
+     - assets/samples/2.0x/
+     - assets/samples/3.0x/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -75,6 +83,6 @@ flutter:
          - asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
            weight: 600
            style: italic
-  #
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

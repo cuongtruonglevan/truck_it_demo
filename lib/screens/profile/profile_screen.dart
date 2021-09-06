@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:truckit_demo/about/about_screen.dart';
+import 'package:truckit_demo/screens/about/about_screen.dart';
 import 'package:truckit_demo/shared/shared.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
