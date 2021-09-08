@@ -20,6 +20,7 @@ class AppAsset {
   static const icMapLocation = 'assets/icons/ic_map_location.png';
   static const icMessage = 'assets/icons/ic_message.png';
   static const icMoreOption = 'assets/icons/ic_more_option.png';
+  static const icMyLocation = 'assets/icons/ic_my_location.png';
   static const icNavigate = 'assets/icons/ic_navigate.png';
   static const icNeutral = 'assets/icons/ic_neutral.png';
   static const icRatingEmpty = 'assets/icons/ic_rating_empty.png';

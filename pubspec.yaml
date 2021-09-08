@@ -13,6 +13,9 @@ dependencies:
   # Widgets
   dotted_border: ^2.0.0+1
   flutter_image_slideshow: ^0.1.1
+
+  # Google services
+  google_maps_flutter: ^2.0.8
   
   # Miscs
   flutter_screenutil: ^5.0.0+2
@@ -43,9 +46,6 @@ flutter:
      - assets/icons/
      - assets/icons/2.0x/
      - assets/icons/3.0x/
-     - assets/images/
-     - assets/images/2.0x/
-     - assets/images/3.0x/
      - assets/samples/
      - assets/samples/2.0x/
      - assets/samples/3.0x/

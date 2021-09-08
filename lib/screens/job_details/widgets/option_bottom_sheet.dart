@@ -5,6 +5,7 @@ import 'package:truckit_demo/shared/app_text_style.dart';
 import 'package:truckit_demo/shared/shared.dart';
 import 'package:truckit_demo/shared/utils.dart';
 import 'package:get/get.dart';
+import 'package:truckit_demo/shared/widgets/dismissible_bottom_sheet.dart';
 
 class OptionBottomSheet extends StatelessWidget {
   OptionBottomSheet({Key? key}) : super(key: key);
@@ -13,124 +14,116 @@ class OptionBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black38,
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
+    return DismissibleBottomSheet(
+      dismissibleKeyValue: 'optionMenu',
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
         child: Column(
           children: [
-            Spacer(),
+            SizedBox(height: 9.w),
             Container(
+              width: 32.w,
+              height: 3.w,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 9.w),
-                  Container(
-                    width: 32.w,
-                    height: 3.w,
-                    decoration: BoxDecoration(
-                      color: AppColor.ffc4c4c4,
-                      borderRadius: BorderRadius.circular(10.w),
-                    ),
-                  ),
-                  buildOptionItem(
-                    context,
-                    Image.asset(
-                      AppAsset.icWatching,
-                      width: 20.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    'Watch this listing',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Image.asset(
-                      AppAsset.icSendMessage,
-                      width: 20.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    'Send a message',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Image.asset(
-                      AppAsset.icDashboardMyQuotes,
-                      color: AppColor.ff505050,
-                      width: 15.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    'Withdraw my quote',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: AppColor.ff505050,
-                      size: 20.w,
-                    ),
-                    'Mark as collected',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: AppColor.ff505050,
-                      size: 20.w,
-                    ),
-                    'Mark as delivered',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: AppColor.ff505050,
-                      size: 20.w,
-                    ),
-                    'Request amount Increase',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Icon(
-                      Icons.highlight_remove_rounded,
-                      color: AppColor.ff505050,
-                      size: 20.w,
-                    ),
-                    'Request cancellation',
-                    false,
-                  ),
-                  buildCustomDivider(),
-                  buildOptionItem(
-                    context,
-                    Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: AppColor.ff505050,
-                      size: 20.w,
-                    ),
-                    'Allow customer to track me',
-                    true,
-                  ),
-                  buildCustomDivider(),
-                ],
+                color: AppColor.ffc4c4c4,
+                borderRadius: BorderRadius.circular(10.w),
               ),
             ),
+            buildOptionItem(
+              context,
+              Image.asset(
+                AppAsset.icWatching,
+                width: 20.w,
+                fit: BoxFit.fitWidth,
+              ),
+              'Watch this listing',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Image.asset(
+                AppAsset.icSendMessage,
+                width: 20.w,
+                fit: BoxFit.fitWidth,
+              ),
+              'Send a message',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Image.asset(
+                AppAsset.icDashboardMyQuotes,
+                color: AppColor.ff505050,
+                width: 15.w,
+                fit: BoxFit.fitWidth,
+              ),
+              'Withdraw my quote',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: AppColor.ff505050,
+                size: 20.w,
+              ),
+              'Mark as collected',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: AppColor.ff505050,
+                size: 20.w,
+              ),
+              'Mark as delivered',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: AppColor.ff505050,
+                size: 20.w,
+              ),
+              'Request amount Increase',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Icon(
+                Icons.highlight_remove_rounded,
+                color: AppColor.ff505050,
+                size: 20.w,
+              ),
+              'Request cancellation',
+              false,
+            ),
+            buildCustomDivider(),
+            buildOptionItem(
+              context,
+              Icon(
+                Icons.check_circle_outline_rounded,
+                color: AppColor.ff505050,
+                size: 20.w,
+              ),
+              'Allow customer to track me',
+              true,
+            ),
+            buildCustomDivider(),
           ],
         ),
       ),

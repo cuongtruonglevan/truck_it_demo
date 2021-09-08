@@ -174,10 +174,12 @@ class WithdrawnQuote extends StatelessWidget {
                 visible: reason.isSelected.value,
                 child: Icon(
                   Icons.radio_button_checked_rounded,
+                  size: 24.w,
                   color: AppColor.fff05a29,
                 ),
                 replacement: Icon(
                   Icons.radio_button_unchecked_rounded,
+                  size: 24.w,
                   color: AppColor.ffe9e6e6,
                 ),
               )),

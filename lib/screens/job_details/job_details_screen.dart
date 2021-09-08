@@ -1,17 +1,23 @@
+import 'dart:async';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:truckit_demo/screens/job_details/widgets/comment_message.dart';
 import 'package:truckit_demo/screens/job_details/widgets/item_details_gallery.dart';
+import 'package:truckit_demo/screens/job_details/widgets/job_map.dart';
 import 'package:truckit_demo/screens/job_details/widgets/mask_as_collected_bottom_sheet.dart';
 import 'package:truckit_demo/screens/job_details/widgets/mask_as_delivered_bottom_sheet.dart';
 import 'package:truckit_demo/screens/job_details/widgets/option_bottom_sheet.dart';
 import 'package:truckit_demo/screens/job_details/widgets/quote_details.dart';
 import 'package:truckit_demo/screens/job_details/widgets/request_amount_increase_bottom_sheet.dart';
 import 'package:truckit_demo/screens/job_details/widgets/withdrawn_quote.dart';
-import 'package:truckit_demo/shared/expandable_widget.dart';
 import 'package:truckit_demo/shared/shared.dart';
 import 'package:truckit_demo/shared/widgets/app_bottom_bar.dart';
+import 'package:truckit_demo/shared/widgets/draw_dash.dart';
+import 'package:truckit_demo/shared/widgets/expandable_widget.dart';
 
 enum JobStatus {
   Active,
@@ -34,6 +40,7 @@ class JobDetailsScreen extends StatelessWidget {
   final itemDetailsExpanded = false.obs;
   final quotesExpanded = false.obs;
   final commentsExpanded = false.obs;
+  final showNotify = true.obs;
 
   final sampleItemGalleries = [
     AppAsset.sampleImageJobDetail1,
@@ -112,7 +119,44 @@ class JobDetailsScreen extends StatelessWidget {
   }
 
   Widget buildCustomNotificationSection() {
-    return Container();
+    return Obx(() => ExpandableWidget(
+          expand: showNotify.value,
+          child: Container(
+            color: AppColor.ff232323,
+            child: Row(
+              children: [
+                SizedBox(width: 20.w),
+                Expanded(
+                  child: Text(
+                    'You have 1 or more pending cancellations',
+                    style: AppTextStyle.normalSemiBold13
+                        .copyWith(color: AppColor.fffffdfd),
+                  ),
+                ),
+                SizedBox(width: 10.w),
+                SizedBox(
+                  height: 35.w,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      minimumSize: Size.zero,
+                      backgroundColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(),
+                    ),
+                    onPressed: () {
+                      showNotify.value = false;
+                    },
+                    child: Text(
+                      'Action',
+                      style: AppTextStyle.normalSemiBold13
+                          .copyWith(color: AppColor.fff05a29),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10.w),
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget buildAppBar(BuildContext context) {
@@ -124,7 +168,7 @@ class JobDetailsScreen extends StatelessWidget {
             width: 56.w,
             child: TextButton(
               style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                shape: RoundedRectangleBorder(),
               ),
               onPressed: () {},
               child: Center(
@@ -150,7 +194,7 @@ class JobDetailsScreen extends StatelessWidget {
             width: 56.w,
             child: TextButton(
               style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                shape: RoundedRectangleBorder(),
               ),
               onPressed: () async {
                 final result = await Navigator.push(
@@ -158,6 +202,7 @@ class JobDetailsScreen extends StatelessWidget {
                   PageRouteBuilder(
                     opaque: false,
                     pageBuilder: (_, __, ___) => OptionBottomSheet(),
+                    transitionsBuilder: appTransitionBuilder,
                   ),
                 );
                 await Future.delayed(Duration(milliseconds: 300));
@@ -168,6 +213,7 @@ class JobDetailsScreen extends StatelessWidget {
                       opaque: false,
                       pageBuilder: (_, __, ___) =>
                           RequestAmountIncreaseBottomSheet(),
+                      transitionsBuilder: appTransitionBuilder,
                     ),
                   );
                 } else if (result == 'Withdraw my quote') {
@@ -176,6 +222,7 @@ class JobDetailsScreen extends StatelessWidget {
                     PageRouteBuilder(
                       opaque: false,
                       pageBuilder: (_, __, ___) => WithdrawnQuote(),
+                      transitionsBuilder: appTransitionBuilder,
                     ),
                   );
                 }
@@ -229,6 +276,7 @@ class JobDetailsScreen extends StatelessWidget {
               content: buildCommentsContent(),
               expanded: commentsExpanded),
           buildHorizontalDivider(),
+          JobMap(),
         ],
       ),
     );
@@ -357,7 +405,10 @@ class JobDetailsScreen extends StatelessWidget {
                     .copyWith(color: AppColor.ff6b6b6b),
               ),
               SizedBox(width: 5.w),
-              Icon(Icons.arrow_right_alt_sharp),
+              Icon(
+                Icons.arrow_right_alt_sharp,
+                size: 12.w,
+              ),
               SizedBox(width: 5.w),
               Image.asset(
                 AppAsset.icMapLocation,
@@ -438,8 +489,9 @@ class JobDetailsScreen extends StatelessWidget {
                   Spacer(),
                   Visibility(
                     visible: expanded.value,
-                    child: Icon(Icons.remove, color: Colors.black),
-                    replacement: Icon(Icons.add, color: Colors.black),
+                    child: Icon(Icons.remove, color: Colors.black, size: 24.w),
+                    replacement:
+                        Icon(Icons.add, color: Colors.black, size: 24.w),
                   ),
                 ],
               ),
@@ -605,96 +657,127 @@ class JobDetailsScreen extends StatelessWidget {
 
           SizedBox(height: 30.w),
 
-          /// FROM
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              /// INDICATOR
+              Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.w),
-                    child: Image.asset(
-                      AppAsset.icMapLocation,
+                  SizedBox(height: 3.w),
+                  DottedBorder(
+                    color: AppColor.ffb8b7b7,
+                    dashPattern: [2.w, 2.w],
+                    borderType: BorderType.Circle,
+                    child: Container(
+                      width: 12.w,
                       height: 12.w,
-                      fit: BoxFit.fitHeight,
                     ),
                   ),
-                  SizedBox(width: 6.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Surrey Hills, NSW 2040',
-                        style: AppTextStyle.normalSemiBold15
-                            .copyWith(color: AppColor.ff6b6b6b),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '11 Nov 2020',
-                          style: AppTextStyle.normalRegular12.copyWith(
-                            color: AppColor.fff05a29,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: ' /  Residential',
-                              style: AppTextStyle.normalRegular12.copyWith(
-                                color: AppColor.ff747474,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  SizedBox(
+                    height: 44.w,
+                    child: DrawDash(),
+                  ),
+                  DottedBorder(
+                    color: AppColor.ffb8b7b7,
+                    dashPattern: [2.w, 2.w],
+                    borderType: BorderType.Circle,
+                    child: Container(
+                      width: 12.w,
+                      height: 12.w,
+                    ),
                   ),
                 ],
               ),
-            ],
-          ),
 
-          SizedBox(height: 24.w),
+              SizedBox(width: 10.w),
 
-          /// TO
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+              /// ADDRESS DETAILS
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.w),
-                    child: Image.asset(
-                      AppAsset.icMapLocation,
-                      height: 12.w,
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  SizedBox(width: 6.w),
-                  Column(
+                  /// FROM
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Surrey Hills, NSW 2040',
-                        style: AppTextStyle.normalSemiBold15
-                            .copyWith(color: AppColor.ff6b6b6b),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: '12 Nov 2020',
-                          style: AppTextStyle.normalRegular12.copyWith(
-                            color: AppColor.fff05a29,
-                          ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  '  /  Commercial without loading facilities',
-                              style: AppTextStyle.normalRegular12.copyWith(
-                                color: AppColor.ff747474,
-                              ),
-                            ),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.w),
+                        child: Image.asset(
+                          AppAsset.icMapLocation,
+                          height: 12.w,
+                          fit: BoxFit.fitHeight,
                         ),
-                      )
+                      ),
+                      SizedBox(width: 6.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Surrey Hills, NSW 2040',
+                            style: AppTextStyle.normalSemiBold15
+                                .copyWith(color: AppColor.ff6b6b6b),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: '11 Nov 2020',
+                              style: AppTextStyle.normalRegular12.copyWith(
+                                color: AppColor.fff05a29,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: ' /  Residential',
+                                  style: AppTextStyle.normalRegular12.copyWith(
+                                    color: AppColor.ff747474,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24.w),
+
+                  /// TO
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.w),
+                        child: Image.asset(
+                          AppAsset.icMapLocation,
+                          height: 12.w,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                      SizedBox(width: 6.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Surrey Hills, NSW 2040',
+                            style: AppTextStyle.normalSemiBold15
+                                .copyWith(color: AppColor.ff6b6b6b),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: '12 Nov 2020',
+                              style: AppTextStyle.normalRegular12.copyWith(
+                                color: AppColor.fff05a29,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      '  /  Commercial without loading facilities',
+                                  style: AppTextStyle.normalRegular12.copyWith(
+                                    color: AppColor.ff747474,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -759,6 +842,7 @@ class JobDetailsScreen extends StatelessWidget {
                     PageRouteBuilder(
                       opaque: false,
                       pageBuilder: (_, __, ___) => ItemDetailsGallery(),
+                      transitionsBuilder: appTransitionBuilder,
                     ),
                   );
                 },
@@ -858,6 +942,7 @@ class JobDetailsScreen extends StatelessWidget {
                     PageRouteBuilder(
                       opaque: false,
                       pageBuilder: (_, __, ___) => QuoteDetails(),
+                      transitionsBuilder: appTransitionBuilder,
                     ),
                   );
                 },
@@ -1097,6 +1182,7 @@ class JobDetailsScreen extends StatelessWidget {
                 PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (_, __, ___) => MaskAsCollectedBottomSheet(),
+                  transitionsBuilder: appTransitionBuilder,
                 ),
               );
               jobStatus.value = JobStatus.ReadyForDelivery;
@@ -1133,6 +1219,7 @@ class JobDetailsScreen extends StatelessWidget {
                 PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (_, __, ___) => MaskAsDeliveredBottomSheet(),
+                  transitionsBuilder: appTransitionBuilder,
                 ),
               );
               jobStatus.value = JobStatus.Delivered;
