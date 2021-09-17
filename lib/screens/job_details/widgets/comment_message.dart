@@ -3,8 +3,16 @@ import 'package:truckit_demo/shared/shared.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommentMessage extends StatelessWidget {
+  const CommentMessage(
+      {Key? key,
+      required this.comment,
+      this.guessColor = Colors.white,
+      this.hasFlag = false})
+      : super(key: key);
+
   final Comment comment;
-  const CommentMessage({Key? key, required this.comment}) : super(key: key);
+  final Color guessColor;
+  final bool hasFlag;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +92,7 @@ class CommentMessage extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(10.w),
                       decoration: BoxDecoration(
-                        color: AppColor.fff3f1f1,
+                        color: guessColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10.w),
                           topRight: Radius.circular(10.w),
@@ -97,11 +105,16 @@ class CommentMessage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 9.w),
-                  Image.asset(
-                    AppAsset.icFlag,
-                    width: 7.w,
-                    fit: BoxFit.fitWidth,
+                  Visibility(
+                    visible: hasFlag,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 9.w),
+                      child: Image.asset(
+                        AppAsset.icFlag,
+                        width: 7.w,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
                   )
                 ],
               ),

@@ -7,6 +7,7 @@ class AppColor {
   static const fffff5f2 = Color(0xfffff5f2);
   static const fff3f1f1 = Color(0xfff3f1f1);
   static const fff3f3f3 = Color(0xfff3f3f3);
+  static const fff4f2f1 = Color(0xfff4f2f1);
   static const ffbfbebe = Color(0xffbfbebe);
   static const ffb8b7b7 = Color(0xffb8b7b7);
   static const fff05a29 = Color(0xfff05a29);
@@ -28,17 +29,23 @@ class AppColor {
   static const ff4b4b4b = Color(0xff4b4b4b);
   static const ff505050 = Color(0xff505050);
   static const ff504e4e = Color(0xff504e4e);
+  static const ff616161 = Color(0xff616161);
   static const ff646464 = Color(0xff646464);
   static const ff666666 = Color(0xff666666);
   static const ff6b6b6b = Color(0xff6b6b6b);
   static const ff737373 = Color(0xff737373);
   static const ff747474 = Color(0xff747474);
   static const ff8e8e8e = Color(0xff8e8e8e);
+  static const ff838383 = Color(0xff838383);
+  static const ff848484 = Color(0xff848484);
+  static const ff878787 = Color(0xff878787);
   static const ff888888 = Color(0xff888888);
+  static const ff9b9a9a = Color(0xff9b9a9a);
   static const ffe0e0e0 = Color(0xffe0e0e0);
+  static const ffe5e5e5 = Color(0xffe5e5e5);
   static const ffe7e5e5 = Color(0xffe7e5e5);
+  static const ffe4e4e4 = Color(0xffe4e4e4);
   static const ffe74040 = Color(0xffe74040);
   static const ffe7e7e7 = Color(0xffe7e7e7);
-  static const ff838383 = Color(0xff838383);
   static const ff232323 = Color(0xff232323);
 }

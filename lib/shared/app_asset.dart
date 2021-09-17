@@ -4,7 +4,11 @@ class AppAsset {
   /// Icons
   static const icAdd = 'assets/icons/ic_add.png';
   static const icAgency = 'assets/icons/ic_agency.png';
+  static const icAllInbox = 'assets/icons/ic_all_inbox.png';
+  static const icArchive = 'assets/icons/ic_archive.png';
+  static const icAttach = 'assets/icons/ic_attach.png';
   static const icBack = 'assets/icons/ic_back.png';
+  static const icCalendar = 'assets/icons/ic_calendar.png';
   static const icCall = 'assets/icons/ic_call.png';
   static const icClock = 'assets/icons/ic_clock.png';
   static const icCopy = 'assets/icons/ic_copy.png';
@@ -23,18 +27,24 @@ class AppAsset {
   static const icMyLocation = 'assets/icons/ic_my_location.png';
   static const icNavigate = 'assets/icons/ic_navigate.png';
   static const icNeutral = 'assets/icons/ic_neutral.png';
+  static const icPhoto = 'assets/icons/ic_photo.png';
   static const icRatingEmpty = 'assets/icons/ic_rating_empty.png';
   static const icRatingFilled = 'assets/icons/ic_rating_filled.png';
+  static const icRead = 'assets/icons/ic_read.png';
   static const icRoad = 'assets/icons/ic_road.png';
+  static const icSearch = 'assets/icons/ic_search.png';
   static const icSendMessage = 'assets/icons/ic_send_message.png';
   static const icSwipe = 'assets/icons/ic_swipe.png';
+  static const icSent = 'assets/icons/ic_sent.png';
   static const icStar = 'assets/icons/ic_star.png';
   static const icTriangle = 'assets/icons/ic_triangle.png';
   static const icTransportProvider = 'assets/icons/ic_transport_provider.png';
   static const icTruckOwner = 'assets/icons/ic_truck_owner.png';
+  static const icUnread = 'assets/icons/ic_unread.png';
   static const icWatching = 'assets/icons/ic_watching.png';
 
   /// Images
+  /// EMPTY
 
   /// Samples
   static const imgProfile = 'assets/samples/img_profile.png';

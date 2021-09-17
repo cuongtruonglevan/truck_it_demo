@@ -4,7 +4,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:truckit_demo/screens/job_details/widgets/comment_message.dart';
 import 'package:truckit_demo/screens/job_details/widgets/item_details_gallery.dart';
 import 'package:truckit_demo/screens/job_details/widgets/job_map.dart';
@@ -1028,7 +1027,10 @@ class JobDetailsScreen extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(height: 15.w),
             itemBuilder: (context, index) {
               final comment = comments.elementAt(index);
-              return CommentMessage(comment: comment);
+              return CommentMessage(
+                  comment: comment,
+                  guessColor: AppColor.fff3f1f1,
+                  hasFlag: true);
             },
           ),
         ),
